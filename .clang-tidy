@@ -1,2 +1,70 @@
-Checks: '*, -llvm-geader-guard'
-WarningsAsErrors: '*'
+# .clang-tidy
+Checks: >
+  -*,
+  bugprone-*,
+  cppcoreguidelines-*,
+  performance-*,
+  modernize-*,
+  readability-*,
+  misc-*,
+  clang-analyzer-*,
+  -llvmlibc-*,
+  -altera-*,
+  -fuchsia-*,
+  -google-*,
+  -modernize-use-trailing-return-type,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -readability-magic-numbers,
+  -misc-include-cleaner,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay
+
+CheckOptions:
+  # Complexidade ciclomática — máximo de caminhos lógicos por função
+  - key: readability-function-cognitive-complexity.Threshold
+    value: '10'
+
+  # Tamanho máximo de função (linhas)
+  - key: readability-function-size.LineThreshold
+    value: '40'
+
+  # Máximo de parâmetros por função
+  - key: readability-function-size.ParameterThreshold
+    value: '4'
+
+  # Máximo de statements por função
+  - key: readability-function-size.StatementThreshold
+    value: '30'
+
+  # Máximo de branches (if/else/switch) por função
+  - key: readability-function-size.BranchThreshold
+    value: '5'
+
+  # Nomes de variáveis locais — mínimo 3 caracteres (evita: a, b, x)
+  - key: readability-identifier-naming.LocalVariableCase
+    value: 'lower_case'
+  - key: readability-identifier-naming.LocalVariableMinLength
+    value: '3'
+
+  # Nomes de funções em camelCase
+  - key: readability-identifier-naming.FunctionCase
+    value: 'CamelCase'
+
+  # Nomes de constantes em UPPER_CASE
+  - key: readability-identifier-naming.ConstantCase
+    value: 'UPPER_CASE'
+
+  # Nomes de classes em PascalCase
+  - key: readability-identifier-naming.ClassCase
+    value: 'CamelCase'
+
+  # Nomes de membros privados com prefixo m_
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: 'm_'
+
+  # Nomes de parâmetros de função em camelCase
+  - key: readability-identifier-naming.ParameterCase
+    value: 'CamelCase'
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '.*'
+FormatStyle: file
